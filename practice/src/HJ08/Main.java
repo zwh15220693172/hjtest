@@ -8,39 +8,37 @@ public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         while (input.hasNextLine()) {
-            int count = getCount(input);
-            Map<Integer,Integer> res = new HashMap<>();
+            int count = readCount(input);
+            Map<Integer, Integer> indexValueMap = new HashMap<>();
             for (int i = 0; i < count; i++) {
-                String inputLine = input.nextLine();
-                String[] strings = inputLine.split(" ");
-                int index = getIndex(strings);
-                int number = getNumber(strings);
-                if (res.containsKey(index)) {
-                    int value = res.get(index);
-                    value += number;
-                    res.put(index,value);
-                } else {
-                    res.put(index,number);
-                }
+                saveDataStr(indexValueMap,input.nextLine());
             }
-            res.entrySet().stream().sorted(Map.Entry.comparingByKey())
-                    .forEach((entry) -> System.out.println(entry.getKey() + " " + entry.getValue()));
+            printIndexValueMap(indexValueMap);
         }
         input.close();
     }
 
-    private static int getNumber(String[] strings) {
-        return Integer.parseInt(strings[1]);
+    private static void printIndexValueMap(Map<Integer, Integer> indexValueMap) {
+        indexValueMap.entrySet()
+                .stream().sorted(Map.Entry.comparingByKey())
+                .forEach((entry)->System.out.println(entry.getKey() + " " + entry.getValue()));
     }
 
-    private static int getIndex(String[] strings) {
-        return Integer.parseInt(strings[0]);
+    private static void saveDataStr(Map<Integer, Integer> indexValueMap, String nextLine) {
+        String[] strData = nextLine.split(" ");
+        int index = Integer.parseInt(strData[0]);
+        int value = Integer.parseInt(strData[1]);
+        if (indexValueMap.containsKey(index)) {
+            int baseValue = indexValueMap.get(index);
+            int inputValue = baseValue + value;
+            indexValueMap.put(index, inputValue);
+        } else {
+            indexValueMap.put(index, value);
+        }
     }
 
-
-
-    private static int getCount(Scanner input) {
-        String inputStr = input.nextLine();
-        return Integer.parseInt(inputStr);
+    private static int readCount(Scanner input) {
+        String countLine = input.nextLine();
+        return Integer.parseInt(countLine);
     }
 }
