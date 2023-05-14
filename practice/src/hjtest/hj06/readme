@@ -1,0 +1,6 @@
+整一个数据结构strNode
+cur = str
+next = str
+val = int
+再整一个map去保存对应的str是哪个strNode
+这样就可以遍历了
