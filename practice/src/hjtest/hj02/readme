@@ -1,5 +1,0 @@
-双指针
-left = 0;
-right = nums.length - 1
-right表示至少需要一个人，因此不管什么条件right都要right--
-当nums[left] + nums[right] <= weight的时候: left++，表示可以带上两个人

@@ -1,4 +1,4 @@
-package hjtest.hj03;
+package hjtest.字符串重新排列;
 
 import java.util.*;
 import java.util.function.Function;
@@ -8,16 +8,14 @@ public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         while (input.hasNextLine()) {
-            String inputStr = input.nextLine();
-            String[] inputStrArray = getInputStrArray(inputStr);
-            Map<String, List<String>> map = Arrays.stream(inputStrArray)
-                    .collect(Collectors.groupingBy(Function.identity()));
-            List<String> resultList = new ArrayList<>();
+            String[] splits = getSplits(input.nextLine());
+            Map<String, List<String>> map = Arrays.stream(splits).collect(Collectors.groupingBy(Function.identity()));
+            List<String> result = new ArrayList<>();
             map.entrySet().stream().sorted(new Comparator<Map.Entry<String, List<String>>>() {
                 @Override
                 public int compare(Map.Entry<String, List<String>> a, Map.Entry<String, List<String>> b) {
-                    if (a.getValue().size() > b.getValue().size()) {
-                        return -1;
+                    if (a.getValue().size() < b.getValue().size()) {
+                        return 1;
                     } else if (a.getValue().size() == b.getValue().size()) {
                         if (a.getKey().length() > b.getKey().length()) {
                             return 1;
@@ -27,25 +25,28 @@ public class Main {
                             return -1;
                         }
                     } else {
-                        return 1;
+                        return -1;
                     }
                 }
-            }).map(Map.Entry::getValue).forEach(resultList::addAll);
-            String result = String.join(" ", resultList);
-            System.out.println(result);
+            }).forEach((stringListEntry)->result.addAll(stringListEntry.getValue()));
+            System.out.println(String.join(" ", result));
         }
         input.close();
     }
 
-    private static String[] getInputStrArray(String inputStr) {
-        String[] splits = inputStr.split(" ");
-        String[] inputStrArray = new String[splits.length];
-        for (int i = 0; i < splits.length; i++) {
-            String cur = splits[i];
-            char[] chars = cur.toCharArray();
+    private static String[] getSplits(String nextLine) {
+        String[] splits = nextLine.split(" ");
+        String[] target = new String[splits.length];
+        int index = 0;
+        while (index < splits.length) {
+            String split = splits[index];
+            char[] chars = split.toCharArray();
             Arrays.sort(chars);
-            inputStrArray[i] = new String(chars);
+            target[index] = new String(chars);
+            index++;
         }
-        return inputStrArray;
+        return target;
     }
+
+
 }
