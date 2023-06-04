@@ -1,4 +1,4 @@
-package hjtest.单向链表中间节点;
+package hjtest.A.hj6单向链表中间节点;
 
 import java.util.Arrays;
 import java.util.HashMap;

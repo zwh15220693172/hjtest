@@ -1,4 +1,4 @@
-package hjtest.需要打开多少个监视器;
+package hjtest.B.hj2需要打开多少个监视器;
 
 import java.util.*;
 

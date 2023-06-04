@@ -1,4 +1,4 @@
-package hjtest.等和子数组最小和;
+package hjtest.A.hj5等和子数组最小和;
 
 import java.util.Arrays;
 import java.util.Scanner;

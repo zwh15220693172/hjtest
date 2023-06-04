@@ -1,4 +1,4 @@
-package hjtest.字符串重新排列;
+package hjtest.A.hj3字符串重新排列;
 
 import java.util.*;
 import java.util.function.Function;

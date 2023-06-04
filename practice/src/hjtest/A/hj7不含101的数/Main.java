@@ -1,4 +1,4 @@
-package hjtest.不含101的数;
+package hjtest.A.hj7不含101的数;
 
 import java.util.Arrays;
 import java.util.List;

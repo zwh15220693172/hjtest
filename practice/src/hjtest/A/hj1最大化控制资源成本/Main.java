@@ -1,4 +1,4 @@
-package hjtest.最大化控制资源成本;
+package hjtest.A.hj1最大化控制资源成本;
 
 import java.util.Arrays;
 import java.util.Comparator;
