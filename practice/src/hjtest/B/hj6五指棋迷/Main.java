@@ -26,6 +26,9 @@ public class Main {
                         if (a.max == b.max) {
                             int aSplit = Math.abs(a.index - mid);
                             int bSplit = Math.abs(b.index - mid);
+                            if (aSplit == bSplit) {
+                                return a.index - b.index;
+                            }
                             return aSplit - bSplit;
                         } else {
                             return b.max - a.max;

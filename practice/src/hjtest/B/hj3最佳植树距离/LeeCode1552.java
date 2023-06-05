@@ -10,7 +10,7 @@ public class LeeCode1552 {
         int target = 0;
         while (min <= max) {
             int mid = (min + max) / 2;
-            if (canPut(mid, m, position)) {
+            if (fit(mid, m, position)) {
                 target = mid;
                 min = mid + 1;
             } else {
@@ -20,9 +20,9 @@ public class LeeCode1552 {
         return target;
     }
 
-    private boolean canPut(int mid, int m, int[] position) {
-        int count = 1;
+    private boolean fit(int mid, int m, int[] position) {
         int pre = position[0];
+        int count = 1;
         for (int i = 1; i < position.length; i++) {
             if (position[i] - pre >= mid) {
                 count++;
