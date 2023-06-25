@@ -1,0 +1,51 @@
+1
+ello
+INSERT h
+----------------------
+2
+hllo
+FORWARD 1
+INSERT e
+----------------------
+2
+hell
+FORWARD 1000
+INSERT o
+----------------------
+2
+abcde
+FORWARD 1
+DELETE 4
+----------------------
+2
+abcde
+FORWARD 1
+DELETE 2
+----------------------
+2
+abcde
+FORWARD 1
+DELETE 5
+----------------------
+1
+hello
+REPLACE HELL
+----------------------
+1
+hello
+REPLACE HELLO
+----------------------
+1
+hello
+REPLACE HELLO WORLD
+----------------------
+2
+hell
+FORWARD 1000000
+REPLACE o
+----------------------
+2
+hello
+FORWARD 1
+REPLACE abcd
+----------------------
