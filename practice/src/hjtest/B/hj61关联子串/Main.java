@@ -15,22 +15,38 @@ public class Main {
             int len = target.size();
             String[] sources = params[1].split("");
             int count = 0;
-            int index = -1;
+            int result = -1;
             LinkedList<String> cursor = new LinkedList<>(target);
-            for (int i = 0; i < sources.length; i++) {
-                String cur = sources[i];
-                if (cursor.remove(cur)) {
-                    count++;
-                    if (count == len) {
-                        index = i - len + 1;
-                        break;
+            int index = 0;
+            boolean startMatching = false;
+            while (index < sources.length) {
+                String cur = sources[index];
+                if (startMatching) {
+                    if (cursor.remove(cur)) {
+                        count++;
+                        if (count == len) {
+                            result = index - len + 1;
+                            break;
+                        }
+                        index++;
+                    } else {
+                        startMatching = false;
+                        count = 0;
+                        cursor = new LinkedList<>(target);
                     }
                 } else {
-                    count = 0;
-                    cursor = new LinkedList<>(target);
+                    if (cursor.remove(cur)) {
+                        startMatching = true;
+                        count++;
+                        if (count == len) {
+                            result = index - len + 1;
+                            break;
+                        }
+                    }
+                    index++;
                 }
             }
-            System.out.println(index);
+            System.out.println(result);
         }
         input.close();
     }
