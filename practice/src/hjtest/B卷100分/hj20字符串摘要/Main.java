@@ -7,6 +7,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 /**
+ * 100%通过
  * 注意
  * 1.可以使用一个int[] charcount = new int[128]用来存储小写字母的个数
  * 2.一开始的初始化，要把charCount对应的值给减去
