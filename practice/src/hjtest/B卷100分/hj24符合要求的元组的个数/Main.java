@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 /**
  * 注意，相加的sum最好用long类型，不然很容易中招
+ * 100%通过
  */
 public class Main {
     private static final LinkedList<Long> PATH = new LinkedList<>();
