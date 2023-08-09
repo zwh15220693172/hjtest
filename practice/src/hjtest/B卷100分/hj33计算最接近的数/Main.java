@@ -3,6 +3,10 @@ package hjtest.B卷100分.hj33计算最接近的数;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * 注意当k=1的时候，直接拿当前值去做运算
+ * 当k>1的时候，有前面的值可以减去，那么没有前面值的数不参与运算
+ */
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -19,13 +23,15 @@ public class Main {
         int resultIndex = -1;
         for (int i = 0; i < ints.length; i++) {
             int cur = ints[i];
-            int start = i + 1;
-            int end = i + k - 1;
-            if (start >= ints.length || end >= ints.length) {
-                break;
-            }
-            for (int j = start; j <= end; j++) {
-                cur -= ints[j];
+            if (k != 1) {
+                int start = i + 1;
+                int end = i + k - 1;
+                if (start >= ints.length || end >= ints.length) {
+                    continue;
+                }
+                for (int j = start; j <= end; j++) {
+                    cur -= ints[j];
+                }
             }
             if (Math.abs(cur-target) < Math.abs(result-target)) {
                 result = cur;

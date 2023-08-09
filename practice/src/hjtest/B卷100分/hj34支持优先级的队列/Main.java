@@ -3,51 +3,42 @@ package hjtest.B卷100分.hj34支持优先级的队列;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * 在生成listMessage元素集合的时候就做好去重工作
+ * 100%通过
+ */
 public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         while (input.hasNextLine()) {
-            LinkedList<Message> listMessage = listMessage(input.nextLine());
-            List<Message> resultQueue = resultQueue(listMessage);
-            String collect = resultQueue.stream().map(Message::toString)
+            List<Message> listMessage = listMessage(input.nextLine());
+            String collect = listMessage.stream().map(Message::toString)
                     .collect(Collectors.joining(","));
             System.out.println(collect);
         }
         input.close();
     }
 
-    private static List<Message> resultQueue(LinkedList<Message> listMessage) {
-        Message pre = new Message(Integer.MAX_VALUE,Integer.MAX_VALUE);
-        List<Message> list = new ArrayList<>();
-        while (!listMessage.isEmpty()) {
-            Message cur = listMessage.poll();
-            if (pre.equals(cur)) {
-                continue;
-            }
-            list.add(cur);
-            pre = cur;
-        }
-        return list;
-    }
-
-    private static LinkedList<Message> listMessage(String nextLine) {
-        LinkedList<Message> list = new LinkedList<>();
+    private static List<Message> listMessage(String nextLine) {
         String replace = nextLine.replaceAll("\\(", "").replaceAll("\\)", "");
         String[] splits = replace.split(",");
         int messageIndex = 0;
         int levelIndex = 1;
         int len = splits.length;
         int code = 1;
+        List<Message> listMessage = new ArrayList<>();
         while (messageIndex < len && levelIndex < len) {
             int message = Integer.parseInt(splits[messageIndex]);
             int level = Integer.parseInt(splits[levelIndex]);
             Message curMessage = new Message(message,level);
-            curMessage.setCode(code++);
-            list.add(curMessage);
+            if (!listMessage.contains(curMessage)) {
+                listMessage.add(curMessage);
+                curMessage.setCode(code++);
+            }
             messageIndex+=2;
             levelIndex+=2;
         }
-        return list.stream().sorted(new Comparator<Message>() {
+        return listMessage.stream().sorted(new Comparator<Message>() {
             @Override
             public int compare(Message a, Message b) {
                 if (a.level == b.level) {
@@ -55,7 +46,7 @@ public class Main {
                 }
                 return b.level - a.level;
             }
-        }).collect(Collectors.toCollection(LinkedList::new));
+        }).collect(Collectors.toList());
     }
 
     private static class Message {
