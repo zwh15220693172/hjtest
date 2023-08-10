@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 /**
  * 100%
+ * 注意的事情是，dp数组一开始比原来数组多1位
+ * dp[0]=0，但是遍历到dp的最后一位
  */
 public class Main {
     public static void main(String[] args) {
