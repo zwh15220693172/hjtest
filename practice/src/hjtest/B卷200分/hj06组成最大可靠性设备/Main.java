@@ -5,6 +5,7 @@ import java.util.*;
 /**
  * 100%通过
  * 全排列回溯
+ * 注意count = 0的情况
  */
 public class Main {
     private static final LinkedList<Machine> machines = new LinkedList<>();
@@ -32,7 +33,7 @@ public class Main {
     }
 
     private static void initMachineComposite(int cur, int len, int total, HashMap<Integer, List<Machine>> typeMachine) {
-        if (cur == len) {
+        if (cur == len && !machines.isEmpty()) {
             int curTotal = machines.stream().mapToInt(Machine::getPrice).sum();
             int reliability = machines.stream().mapToInt(Machine::getReliability).min().getAsInt();
             if (curTotal <= total) {

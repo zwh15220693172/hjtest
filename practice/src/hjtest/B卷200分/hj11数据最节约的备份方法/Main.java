@@ -8,6 +8,8 @@ public class Main {
         Scanner input = new Scanner(System.in);
         while (input.hasNextLine()) {
             int[] ints = getInts(input.nextLine());
+            System.out.println(Arrays.toString(ints));
+            System.out.println(Arrays.stream(ints).sum());
             int left = 0;
             int right = ints.length - 1;
             int count = 0;
