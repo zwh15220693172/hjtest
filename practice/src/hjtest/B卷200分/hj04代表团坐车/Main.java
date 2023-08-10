@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 /**
  * 100%通过
+ * 组成目标和有多少种方式
  */
 public class Main {
     public static void main(String[] args) {

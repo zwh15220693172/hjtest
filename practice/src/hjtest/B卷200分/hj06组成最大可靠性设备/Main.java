@@ -2,6 +2,10 @@ package hjtest.B卷200分.hj06组成最大可靠性设备;
 
 import java.util.*;
 
+/**
+ * 100%通过
+ * 全排列回溯
+ */
 public class Main {
     private static final LinkedList<Machine> machines = new LinkedList<>();
     private static final List<MachineComposite> machineCompositeList = new ArrayList<>();
