@@ -4,6 +4,12 @@ import java.util.*;
 
 /**
  * 100%通过
+ * 回溯算法
+ * 1.运用一个hashMap记录下标以及对应的文件
+ * 2.文件对象为id,以及childs
+ * 3.起始下标为index,去hashmap，里面取这个文件
+ * 4.sum+这个文件的大小
+ * 5.如果这个文件存在child，遍历，去hashmap里面取，然后sum+=
  */
 public class Main {
     public static void main(String[] args) {

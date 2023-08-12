@@ -7,6 +7,7 @@ import java.util.Scanner;
 /**
  * 注意，相加的sum最好用long类型，不然很容易中招
  * 100%通过
+ * 全排列，回溯，使用一个used数组用于去重
  */
 public class Main {
     private static final LinkedList<Long> PATH = new LinkedList<>();

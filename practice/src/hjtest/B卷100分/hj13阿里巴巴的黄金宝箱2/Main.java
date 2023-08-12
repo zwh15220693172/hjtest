@@ -5,6 +5,10 @@ import java.util.stream.Collectors;
 
 /**
  * 100%通过
+ * 1.记录每一个数字num的数量count
+ * 2.排序，从大到小排
+ * 3.减去响应的count,从大到小减
+ * 4.如果数组<=len/2,那么输出count
  */
 public class Main {
     public static void main(String[] args) {

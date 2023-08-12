@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 /**
  * 100%通过
- * 注意：顺序保持数组中原有的顺序
+ * 两数之和，但是下标取和最小，注意输出的时候，保持数组原有的相对顺序
  */
 public class Main {
     public static void main(String[] args) {

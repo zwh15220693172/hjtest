@@ -6,7 +6,11 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
+ * 100%通过
  * 同一个订阅时间，越晚出现的消费者，级别越高
+ * 1.如果发布时间，大于等于退顶时间，那么无缘接受到消息
+ * 2.如果比发布时间要小，那么取最接近的时间，最好是等于的
+ * 3，如果有两个等于的时间，那么后面出现的消费者的等级更高
  */
 public class Main {
     public static void main(String[] args) {

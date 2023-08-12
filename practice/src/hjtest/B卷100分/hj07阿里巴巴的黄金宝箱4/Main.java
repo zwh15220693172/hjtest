@@ -5,6 +5,12 @@ import java.util.Scanner;
 
 /**
  * 100%
+ * 前缀和的运用，找出前k个宝箱的最大和
+ * 初始化dp数组，dp[0]=0
+ * for (int i = 0; i < dp.length() - k, i++) {
+ *     int cur = dp[i+k]-dp[i]
+ *     cur = Math.max(cur,max);
+ * }
  */
 public class Main {
     public static void main(String[] args) {

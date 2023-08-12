@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 /**
  * 100%通过
+ * 每一列取最大值，然后再每一列里面取一个最小值
  */
 public class Main {
     public static void main(String[] args) {

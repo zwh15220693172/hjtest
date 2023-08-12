@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 /**
  * 有超时的
+ * 1.创建一个与原先数组一样长度的数组
+ * 2.当前的String，从后往前，获取下标，注意，如果为abc123,那么下标为123,注意的事情为下标可能大于1位数
+ * 3.再对应下标处将string放入
  */
 public class Main {
     public static void main(String[] args) {

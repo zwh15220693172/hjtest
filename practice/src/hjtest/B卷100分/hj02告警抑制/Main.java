@@ -6,7 +6,10 @@ import java.util.stream.Collectors;
 /**
  * 100%通过
  * 注意：抑制的对象可能存在多个，
- * 先把出现的字符放进HashMap里面去重
+ * 1.先把出现的字符放进HashMap里面去重
+ * 2.对应的字符串的数组为String[],我们标注一个int[]与他长度相同，用来标记哪个不用
+ * 3.如果为1表示弃用
+ * 4.A B 如果hashMap里面存在A也存在B，那么将B的对应字符串的int[]数组标记为1，注意有可能有多个
  * A B
  * A B B B B B C
  */

@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 /**
  * 100%通过
  * 没啥好说的，x1,y1就能解决问题，按照x1,y1最小排序
+ * y1越小级别越高
+ * x1越小级别越高
  */
 public class Main {
     public static void main(String[] args) {

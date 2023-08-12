@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 /**
  * 100%通过
+ * 记录每一行0的数量，如果大于等于len / 2 ，那么count++
+ * 记录每一列0的数量，如果大于等于len / 2，那么count++
  */
 public class Main {
     public static void main(String[] args) {

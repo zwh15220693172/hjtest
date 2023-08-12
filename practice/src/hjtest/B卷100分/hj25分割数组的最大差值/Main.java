@@ -6,6 +6,8 @@ import java.util.Scanner;
 /**
  * 前缀和解决这个问题
  * 超时，注意两边的边界问题，左右两边不能为0
+ * 所以初始化dp的时候，dp[0] = ints[0]
+ * 并且这个for循环不走到dp.length - 1
  */
 public class Main {
     public static void main(String[] args) {

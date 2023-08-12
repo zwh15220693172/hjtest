@@ -5,8 +5,12 @@ import java.util.Scanner;
 
 /**
  * 100%
- * 注意的事情是，dp数组一开始比原来数组多1位
- * dp[0]=0，但是遍历到dp的最后一位
+ * 前缀和的运用
+ * 之前箱子的和等于之后箱子的数量，左右都可以算为0
+ * 1.初始化dp数组，dp[0]=0
+ * 2.左边箱子为dp[i-1]
+ * 3.右边箱子为dp[end]-dp[i]
+ * 注意，dp的长度从1到dp.length-1，这样子就可以顾及到做左边右边和为0的情况
  */
 public class Main {
     public static void main(String[] args) {

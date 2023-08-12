@@ -6,8 +6,10 @@ import java.util.Scanner;
 /**
  * 100%通过
  * 注意的点：
+ * 二分法处理
  * 1.左闭右闭区间，中间为left <= right
- * 2.result的初始值为0
+ * 2.min = 1
+ * 3.max = 总人数 - remain
  */
 public class Main {
     public static void main(String[] args) {

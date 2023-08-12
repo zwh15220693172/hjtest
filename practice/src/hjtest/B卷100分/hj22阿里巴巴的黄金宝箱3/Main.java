@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 /**
  * 100通过
+ * 1.输入的数字为k,那么我们就找i+1到i+k之间的数,定义这个区间为j
+ * 2.如果ints[i]==ints[j]那么输出i直接结束循环
  */
 public class Main {
     public static void main(String[] args) {

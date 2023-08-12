@@ -7,6 +7,9 @@ import java.util.Scanner;
 /**
  * 注意，9 10翻转过来是10 9不是 01 9
  * 100%通过
+ * 比如报文10 9，那么必须存在9 10才能表示报文存在
+ * string.split(" ")
+ * string[1] + " " + string[0]
  */
 public class Main {
     public static void main(String[] args) {

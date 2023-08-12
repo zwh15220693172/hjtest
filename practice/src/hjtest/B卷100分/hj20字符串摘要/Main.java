@@ -9,9 +9,15 @@ import java.util.stream.Collectors;
 /**
  * 100%通过
  * 注意
- * 1.可以使用一个int[] charcount = new int[128]用来存储小写字母的个数
- * 2.一开始的初始化，要把charCount对应的值给减去
- * 3.注意收尾的工作,再最后添加一个“ “就是用来收尾的，之前的手法不要再用了
+ * 1.首先去除字符串中出现的奇怪的字符
+ * 2.使用一个chaCount用来记录每一个字母出现的次数
+ * 3.字符数组的末尾使用' '方便收尾
+ * 4.创建一个charCount的对象，char为对应的char，count为数量
+ * 5.初始化.pre= chars[0],并且让对应的char再charCount内--
+ * 6.chars从1开始，如果pre == cur，那么count++，记得charCount要减去相应的值
+ * 7.如果pre != cur
+ * 8.如果count > 1 那么直接生成对象
+ * 9.否则从charCount里面取值
  */
 public class Main {
     public static void main(String[] args) {

@@ -7,8 +7,13 @@ import java.util.Scanner;
 /**
  * 100%通过
  * 注意：0x10是16进制的意思
- * 把int转换成2进制采用方法Integer.toBinaryString()
- * 转换成2进制后，不足8位的，要在前面用0补位！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+ * 1.小于128直接返回
+ * 2.大于128使用Integer.toBinaryString(number)
+ * 3.用一个stringbuilder将上面的结果包裹
+ * 4.如果不足8位，使用0进行补位
+ * 5.Integer.parseInt(substring(1,4),2)为exp
+ * 6.Integer.parseInt(substring(4),2)为mant
+ * 7.公式为（mant | 16 ）<< (exp + 3)
  */
 public class Main {
     public static void main(String[] args) {

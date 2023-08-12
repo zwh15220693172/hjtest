@@ -7,6 +7,13 @@ import java.util.stream.Collectors;
  * 1.注意，输出的班级号是字符串
  * 2.注意，学生成绩相同的时候，按照学号从小到大排
  * 100%
+ * 1.学生对象为student, code = string, scores = list
+ * 2.整一个hashmap，key = code, value = student
+ * 3.遍历第一行,都放进去
+ * 4.遍历第二行，如果存在，那么放进去
+ * 5.hashmap.values过滤掉长度不足2的
+ * 6.整一个class对象，list为student，code为字符串
+ * 7.排序
  */
 public class Main {
     public static void main(String[] args) {

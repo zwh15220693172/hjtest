@@ -7,6 +7,10 @@ import java.util.Scanner;
  * 记住要判断当前座位是否为0
  * 要注意小心只有一个位置并且为0的情况
  * 100%
+ * 1.当0 == 0 并且 0 + 1 = 0的时候，count++
+ * 2.当ints.length - 1 == 0 并且 i - 1 == 0的时候，count++
+ * 3.当i-1 == 0 && i + 1 == 0 && i == 0的时候，count++
+ * 4.要注意len == 1 ints[0] = 0的情况
  */
 public class Main {
     public static void main(String[] args) {
