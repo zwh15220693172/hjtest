@@ -1,12 +1,12 @@
 package hjtest.B卷200分.hj11数据最节约的备份方法;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Scanner;
 
 /**
  * 100%通过
  * 二分法+划分为K个相同的子集
+ * 注意区间问题，这个是左闭右闭区间，因此，left <= right
  */
 public class Main {
     public static void main(String[] args) {
@@ -18,7 +18,7 @@ public class Main {
             int result = -1;
             while (min <= max) {
                 int mid = (min + max) / 2;
-                if (canPut(mid, ints)) {
+                if (canPut(mid,ints)) {
                     result = mid;
                     max = mid - 1;
                 } else {
@@ -43,12 +43,13 @@ public class Main {
             if (i > 0 && bucket[i] == bucket[i-1]) {
                 continue;
             }
-            if (bucket[i]+ints[index] <= 500) {
-                bucket[i]+=ints[index];
+            int cur = ints[index];
+            if (bucket[i] + cur <= 500) {
+                bucket[i] += cur;
                 if (backtracking(index-1,ints,bucket)) {
                     return true;
                 }
-                bucket[i]-=ints[index];
+                bucket[i] -= cur;
             }
         }
         return false;
