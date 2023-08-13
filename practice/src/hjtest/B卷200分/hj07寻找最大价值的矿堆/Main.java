@@ -7,6 +7,8 @@ import java.util.Scanner;
 
 /**
  * 100%通过
+ * dfs，使用一个boolean[][]来记录走过了哪些区域
+ * 因为可以先走左边，再走右边，因此有返回值返回
  */
 public class Main {
     private static int m;

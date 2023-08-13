@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /**
- * 二分法
+ * 二分法找一个最大的植树距离
  * 100%通过
  */
 public class Main {

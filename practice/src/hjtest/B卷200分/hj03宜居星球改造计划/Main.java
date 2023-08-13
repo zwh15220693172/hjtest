@@ -7,9 +7,10 @@ import java.util.Scanner;
 
 /**
  * 输出改造天数的条件
- * 1.改造天数>0
- * 2.grid内已经没有no了
- * 3.考虑一开始没有可改造区的情况
+ * 1.可改造的区域为NO
+ * 2.如果一开始就没有可改造的区域（NO区），那么直接输出0
+ * 3.如果有可改造的区，但是最后依旧存在no，说明改造失败，输出-1
+ * 4.否则输出天数
  */
 public class Main {
     private static final int[][] director = {
@@ -54,7 +55,7 @@ public class Main {
                     day++;
                 }
             }
-            if (notNo(grid) && day > 0) {
+            if (notNo(grid)) {
                 System.out.println(day);
             } else {
                 System.out.println(-1);

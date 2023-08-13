@@ -4,9 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * 两个数组整成两个hashMap, key: number value: count
- * 第一个hashMap的key去给第二个hashmap做判断，如果包含，那么放进list里面去
- * 100%通过
+ *
  */
 public class Main {
     public static void main(String[] args) {

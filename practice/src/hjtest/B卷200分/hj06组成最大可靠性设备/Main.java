@@ -6,6 +6,7 @@ import java.util.*;
  * 100%通过
  * 全排列回溯
  * 注意count = 0的情况
+ * 如果没有符合要求的结果，要输出-1
  */
 public class Main {
     private static final LinkedList<Machine> machines = new LinkedList<>();
