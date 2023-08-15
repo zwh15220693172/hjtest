@@ -1,0 +1,22 @@
+1
+20
+-------------------------
+思路：
+区间的开始为start
+区间的结束为end
+将区间内的值的平方保存到res中
+将res放进cursor(HashSet)中
+for (i = 0 ; i < res.size(); i ++) {
+  for (j = i + 1; j < res.size(); j++) {
+     int sum = res.get(i) + res.get(j);
+     如果cursor中包含sum，那么用一个int[]保存Math.sqrt(res.get(i), res.get(j), sum);
+  }
+}
+判断两个数是否互为质数的做法
+int x, int y
+while (y > 0) {
+  int mod = x % y;
+  x = y;
+  y = mod;
+}
+return x == 1;
