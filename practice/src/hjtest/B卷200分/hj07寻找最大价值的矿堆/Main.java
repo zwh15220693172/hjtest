@@ -33,7 +33,7 @@ public class Main {
             for (int i = 0; i < m; i++) {
                 for (int j = 0; j < n; j++) {
                     if (!used[i][j] && (grid[i][j] == 1 || grid[i][j] == 2)) {
-                        int cur = getResult(i,j,0,grid,used);
+                        int cur = getResult(i,j,grid,used);
                         result = Math.max(cur,result);
                     }
                 }
@@ -47,8 +47,8 @@ public class Main {
         input.close();
     }
 
-    private static int getResult(int i, int j, int sum, int[][] grid, boolean[][] used) {
-        sum += grid[i][j];
+    private static int getResult(int i, int j, int[][] grid, boolean[][] used) {
+        int sum = grid[i][j];
         used[i][j] = true;
         for (int[] director : directors) {
             int x = i + director[0];
@@ -57,7 +57,7 @@ public class Main {
                 continue;
             }
             if (!used[x][y] && (grid[x][y] == 1 || grid[x][y] == 2)) {
-                sum = getResult(x,y,sum,grid,used);
+                sum += getResult(x,y,grid,used);
             }
         }
         return sum;

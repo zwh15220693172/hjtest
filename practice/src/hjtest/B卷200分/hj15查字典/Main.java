@@ -15,9 +15,8 @@ public class Main {
             String[] splits = input.nextLine().split(" ");
             String pre = splits[0];
             int len = Integer.parseInt(splits[1]);
-            int start = splits.length - len;
             List<String> result = new ArrayList<>();
-            for (int i = start; i < splits.length; i++) {
+            for (int i = 2; i < 2 + len; i++) {
                 String cur = splits[i];
                 if (cur.startsWith(pre)) {
                     result.add(cur);

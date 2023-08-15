@@ -10,13 +10,11 @@ import java.util.Scanner;
  * 全排列，回溯，使用一个used数组用于去重
  */
 public class Main {
-    private static final LinkedList<Long> PATH = new LinkedList<>();
     private static int result;
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         while (input.hasNextLine()) {
-            PATH.clear();
             result = 0;
             long[] ints = getInts(input.nextLine());
             int k = Integer.parseInt(input.nextLine());
@@ -44,10 +42,8 @@ public class Main {
             if (i > 0 && ints[i] == ints[i-1] && !used[i-1]) {
                 continue;
             }
-            PATH.addLast(ints[i]);
             used[i] = true;
             getResult(cur+1,k,sum+ints[i],target,i+1,ints,used);
-            PATH.removeLast();
             used[i] = false;
         }
     }

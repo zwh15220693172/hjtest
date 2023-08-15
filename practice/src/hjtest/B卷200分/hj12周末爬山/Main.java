@@ -37,8 +37,8 @@ public class Main {
             n = mnSplit[1];
             split = mnSplit[2];
             int[][] grid = buildGrid(m,n,input);
-            result = Integer.MIN_VALUE;
-            midLen = Integer.MAX_VALUE;
+            result = 0;
+            midLen = 0;
             boolean[][] used = new boolean[m][n];
             used[0][0] = true;
             getResult(0,0,0,used,grid);

@@ -29,6 +29,7 @@ public class Main {
     }
 
     private static int[] getInts(String nextLine) {
-        return Arrays.stream(nextLine.split(",")).mapToInt(Integer::parseInt).toArray();
+        return Arrays.stream(nextLine.split(","))
+                .mapToInt(Integer::parseInt).toArray();
     }
 }

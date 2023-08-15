@@ -33,7 +33,8 @@ public class Main {
         input.close();
     }
 
-    private static void initMachineComposite(int cur, int len, int total, HashMap<Integer, List<Machine>> typeMachine) {
+    private static void initMachineComposite(int cur, int len, int total,
+                                             HashMap<Integer, List<Machine>> typeMachine) {
         if (cur == len && !machines.isEmpty()) {
             int curTotal = machines.stream().mapToInt(Machine::getPrice).sum();
             int reliability = machines.stream().mapToInt(Machine::getReliability).min().getAsInt();
@@ -41,6 +42,9 @@ public class Main {
                 MachineComposite machineComposite = new MachineComposite(curTotal,reliability);
                 machineCompositeList.add(machineComposite);
             }
+            return;
+        }
+        if (!typeMachine.containsKey(cur)) {
             return;
         }
         List<Machine> curMachineList = typeMachine.get(cur);

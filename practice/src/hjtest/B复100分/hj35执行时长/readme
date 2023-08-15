@@ -1,0 +1,13 @@
+3
+5
+1 2 3 4 5
+-------------------
+思路，整一个remain表示剩余
+如果remain+cur<=cut
+remain=0
+否则remain=remain+cur-cut
+最后如果remain还有剩余
+while(reamin > 0){
+ remain-=cut;
+ time++;
+}
