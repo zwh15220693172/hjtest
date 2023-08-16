@@ -1,0 +1,16 @@
+abc efghicbaiii
+---------------
+abc efghiccaiii
+---------------
+lioqtrpdp zzdtxvjolpqdptroidfgtvxui
+输出8
+----------------------------
+思路：
+abc为target
+efghiccaiii为source
+整一个ints[]数组用来记录target中每一个单词的数量
+整一个total = target.length
+整一个count = 0;
+如果source[i]= cur,ints[cur]>0，那么--，count++,如果count == total,那么输出下标，否则index++;
+如果ints[cur]==0,并且count==0，那么intdex++即可
+如果ints[cur]==0,并且count>0，证明之前做过了匹配，那么要index-count+1重新匹配，ints[]翻新，count=0，但是下标不要移动

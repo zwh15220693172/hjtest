@@ -1,0 +1,17 @@
+quackquack
+-----------------
+qaauucqckk
+-----------------
+quacqkuac
+-----------------------------------
+qququaauqccauqkkcauqqkcauuqkcaaukccakkck
+5
+
+-------------------------------
+思路：转换成区间问题来做
+整一个charCount[]数组用来记录每一个char的数量，如果charCount[index-1]>charCount[index]
+charCount[index]++;
+记录每一个q的下标，以及k的下标
+[left01,right01]
+[left02,right02]
+如果下一个ints的left02小于right01那么要加一只大雁
