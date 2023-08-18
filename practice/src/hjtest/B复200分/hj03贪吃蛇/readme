@@ -1,0 +1,46 @@
+D G G
+3 3
+F F F
+F F H
+E F E
+---------------------------
+D G L G G U G G R G G D G L G
+3 3
+F F F
+F F H
+E F E
+输出7
+---------------------------
+D G L G U G R G U G L G D G
+3 3
+F F F
+F F H
+E F E
+输出5
+---------------------------
+G D G R G U G R G
+2 3
+F H F
+F F F
+输出5
+
+----------------------------
+思路：
+1.snake.getFirst = head
+2.这个head用来做试探:
+head[0]+director[0]=x
+head[1]+director[1]=y
+3.如果grid[x][y]="E"，
+那么snake.removeLast() = tail
+grid[tail[0]][tail[1]]="E"
+grid[x][y]="H"
+snake.addFirst(new int[]{x,y});
+4.如果grid[x][y]="F"，
+grid[x][y]="H"
+那么snake.addFirst(new int[]{x,y]);
+5.如果grid[x][y]="H"
+那么有可能是蛇身，也有可能是蛇尾
+要先把尾巴拿出来snake.getLast();
+如果与蛇尾相等，那么snake.addFirst(snake.removeLast())
+否则：break
+6.如果超过边界也break
