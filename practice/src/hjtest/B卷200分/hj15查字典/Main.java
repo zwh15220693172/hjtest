@@ -11,22 +11,18 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        while (input.hasNextLine()) {
-            String[] splits = input.nextLine().split(" ");
-            String pre = splits[0];
-            int len = Integer.parseInt(splits[1]);
-            List<String> result = new ArrayList<>();
-            for (int i = 2; i < 2 + len; i++) {
-                String cur = splits[i];
-                if (cur.startsWith(pre)) {
-                    result.add(cur);
-                }
+        String pre = input.next();
+        int len = input.nextInt();
+        boolean getResult = false;
+        for (int i = 0; i < len; i++) {
+            String cur = input.next();
+            if (cur.startsWith(pre)) {
+                System.out.println(cur);
+                getResult = true;
             }
-            if (result.isEmpty()) {
-                System.out.println(-1);
-            } else {
-                result.forEach(System.out::println);
-            }
+        }
+        if (!getResult) {
+            System.out.println(-1);
         }
         input.close();
     }

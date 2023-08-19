@@ -10,37 +10,34 @@ import java.util.*;
  */
 public class Main {
     private static final LinkedList<Machine> machines = new LinkedList<>();
-    private static final List<MachineComposite> machineCompositeList = new ArrayList<>();
+
+    private static int result;
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         while (input.hasNextLine()) {
             machines.clear();
-            machineCompositeList.clear();
+            result = -1;
             int[] totalLen = totalLen(input.nextLine());
             int total = totalLen[0];
             int len = totalLen[1];
             int count = Integer.parseInt(input.nextLine());
             HashMap<Integer,List<Machine>> typeMachine = buildTypeMachine(count,input);
             initMachineComposite(0,len,total,typeMachine);
-            if (machineCompositeList.isEmpty()) {
-                System.out.println(-1);
-            } else {
-                MachineComposite machineComposite = machineCompositeList.stream().max(Comparator.comparing(MachineComposite::getReliability)).get();
-                System.out.println(machineComposite.reliability);
-            }
+            System.out.println(result);
         }
         input.close();
     }
 
     private static void initMachineComposite(int cur, int len, int total,
                                              HashMap<Integer, List<Machine>> typeMachine) {
-        if (cur == len && !machines.isEmpty()) {
-            int curTotal = machines.stream().mapToInt(Machine::getPrice).sum();
-            int reliability = machines.stream().mapToInt(Machine::getReliability).min().getAsInt();
-            if (curTotal <= total) {
-                MachineComposite machineComposite = new MachineComposite(curTotal,reliability);
-                machineCompositeList.add(machineComposite);
+        if (cur == len) {
+            if (!machines.isEmpty()) {
+                int curTotal = machines.stream().mapToInt(Machine::getPrice).sum();
+                int reliability = machines.stream().mapToInt(Machine::getReliability).min().getAsInt();
+                if (curTotal <= total && reliability > result) {
+                    result = reliability;
+                }
             }
             return;
         }
