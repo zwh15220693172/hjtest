@@ -1,0 +1,10 @@
+COMMAND TABLE IF EXISTS "UNITED STATE";
+COMMAND A GREAT(
+ID ADSAB,
+download_length INTE-GER, --test
+file_name TEXT,
+guid TEXT,
+mime_type TEXT,
+notifica-tionid INTEGER,
+url TEXT
+);
