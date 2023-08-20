@@ -3,6 +3,9 @@ package hjtest.B复200分.hj11连续出牌数量;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * 100%通过
+ */
 public class Main {
     private static int result;
 
@@ -11,12 +14,12 @@ public class Main {
         while (input.hasNextLine()) {
             result = Integer.MIN_VALUE;
             int[] ints = getInts(input.nextLine());
-            char[] colors = getChars(input.nextLine());
+            String[] colors = input.nextLine().split(" ");
             int len = ints.length;
-            boolean[] used = new boolean[len];
+            boolean[] used = new boolean[ints.length];
             for (int i = 0; i < len; i++) {
                 used[i] = true;
-                backtracking(i,0,used,ints,colors);
+                backtracking(1,len,i,ints,colors,used);
                 used[i] = false;
             }
             System.out.println(result);
@@ -24,49 +27,21 @@ public class Main {
         input.close();
     }
 
-    private static void backtracking(int index, int cur, boolean[] used, int[] ints, char[] colors) {
-        cur++;
+    private static void backtracking(int cur, int len, int last, int[] ints, String[] colors, boolean[] used) {
+        if (cur > len) {
+            return;
+        }
         result = Math.max(cur,result);
-        int sameNumberIndex = findSameNumberIndex(index,used,ints);
-        if (sameNumberIndex != -1) {
-            used[sameNumberIndex] = true;
-            backtracking(sameNumberIndex,cur,used,ints,colors);
-            used[sameNumberIndex] = false;
-        }
-        int sameColorIndex = findSameColor(index,used,colors);
-        if (sameColorIndex != -1) {
-            used[sameColorIndex] = true;
-            backtracking(sameColorIndex,cur,used,ints,colors);
-            used[sameColorIndex] = false;
-        }
-    }
-
-    private static int findSameColor(int index, boolean[] used, char[] colors) {
-        for (int i = 0; i < colors.length; i++) {
+        for (int i = 0; i < len; i++) {
             if (used[i]) {
                 continue;
             }
-            if (colors[index] == colors[i]) {
-                return i;
+            if (ints[i] == ints[last] || colors[i].equals(colors[last])) {
+                used[i] = true;
+                backtracking(cur+1,len,i,ints,colors,used);
+                used[i] = false;
             }
         }
-        return -1;
-    }
-
-    private static int findSameNumberIndex(int index, boolean[] used, int[] ints) {
-        for (int i = 0; i < ints.length; i++) {
-            if (used[i]) {
-                continue;
-            }
-            if (ints[index] == ints[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    private static char[] getChars(String nextLine) {
-        return nextLine.replaceAll(" ","").toCharArray();
     }
 
     private static int[] getInts(String nextLine) {
