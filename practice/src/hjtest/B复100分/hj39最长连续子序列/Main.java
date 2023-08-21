@@ -13,7 +13,7 @@ public class Main {
             int[] ints = getInts(input.nextLine());
             int target = Integer.parseInt(input.nextLine());
             int[] dp = getDp(ints);
-            int max = Integer.MIN_VALUE;
+            int max = -1;
             for (int i = 0; i < dp.length; i++) {
                 for (int j = i + 1; j < dp.length; j++) {
                     if (dp[j] - dp[i] == target) {
@@ -22,11 +22,7 @@ public class Main {
                     }
                 }
             }
-            if (max == Integer.MIN_VALUE) {
-                System.out.println(-1);
-            } else {
-                System.out.println(max);
-            }
+            System.out.println(max);
         }
         input.close();
     }

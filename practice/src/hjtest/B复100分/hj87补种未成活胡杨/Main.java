@@ -9,62 +9,43 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        while (input.hasNextInt()) {
-            int len = input.nextInt();
-            int[] ints = buildInts(len);
-            int count = input.nextInt();
-            setInts(count, input, ints);
-            int k = input.nextInt();
-            int left = 0;
-            int right = 0;
-            int max = getMax(ints);
-            int zeroCount = 0;
-            while (right < len) {
-                if (ints[right] == 0) {
-                    zeroCount++;
-                }
-                if (zeroCount > k) {
-                    while (left < right && zeroCount > k) {
-                        if (ints[left] == 0) {
-                            zeroCount--;
-                        }
-                        left++;
+        int len = input.nextInt();
+        int[] ints = getInts(len);
+        setZero(ints, input);
+        int k = input.nextInt();
+        int left = 0;
+        int right = 0;
+        int zeroCount = 0;
+        int max = -1;
+        while (right < len) {
+            if (ints[right] == 0) {
+                zeroCount++;
+            }
+            if (zeroCount > k) {
+                while (left < right && zeroCount > k) {
+                    if (ints[left] == 0) {
+                        zeroCount--;
                     }
-                } else {
-                    int cur = right - left + 1;
-                    max = Math.max(cur,max);
+                    left++;
                 }
-                right++;
             }
-            System.out.println(max);
+            int cur = right - left + 1;
+            max = Math.max(cur,max);
+            right++;
         }
-        input.close();
+        System.out.println(max);
     }
 
-    private static int getMax(int[] ints) {
-        int max = Integer.MIN_VALUE;
-        int count = 0;
-        for (int i = 0; i < ints.length; i++) {
-            if (ints[i] == 1) {
-                count++;
-            } else {
-                max = Math.max(count,max);
-                count = 0;
-            }
-        }
-        max = Math.max(count,max);
-        return max;
-    }
-
-    private static void setInts(int count, Scanner input, int[] ints) {
-        while (count > 0) {
+    private static void setZero(int[] ints, Scanner input) {
+        int m = input.nextInt();
+        while (m > 0) {
             int index = input.nextInt() - 1;
             ints[index] = 0;
-            count--;
+            m--;
         }
     }
 
-    private static int[] buildInts(int len) {
+    private static int[] getInts(int len) {
         int[] ints = new int[len];
         Arrays.fill(ints,1);
         return ints;
