@@ -8,18 +8,19 @@ public class LeeCode77 {
     public List<List<Integer>> combine(int n, int k) {
         List<List<Integer>> result = new ArrayList<>();
         LinkedList<Integer> path = new LinkedList<>();
-        getResult(1,0,k,n,path,result);
+        backtracking(0,k,1,n,path,result);
         return result;
     }
 
-    private void getResult(int start, int cur, int k, int n, LinkedList<Integer> path, List<List<Integer>> result) {
+    private void backtracking(int cur, int k, int num, int n,
+                              LinkedList<Integer> path, List<List<Integer>> result) {
         if (cur == k) {
             result.add(new ArrayList<>(path));
             return;
         }
-        for (int i = start; i <= n; i++) {
+        for (int i = num; i <= n; i++) {
             path.addLast(i);
-            getResult(i+1,cur+1,k,n,path,result);
+            backtracking(cur+1,k,i+1,n,path,result);
             path.removeLast();
         }
     }

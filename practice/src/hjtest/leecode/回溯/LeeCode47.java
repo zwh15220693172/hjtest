@@ -7,16 +7,17 @@ import java.util.List;
 
 public class LeeCode47 {
     public List<List<Integer>> permuteUnique(int[] nums) {
-        List<List<Integer>> result = new ArrayList<>();
-        LinkedList<Integer> path = new LinkedList<>();
         Arrays.sort(nums);
         boolean[] used = new boolean[nums.length];
-        getResult(0,nums,used,path,result);
+        List<List<Integer>> result = new ArrayList<>();
+        LinkedList<Integer> path = new LinkedList<>();
+        backtracking(0,nums.length,nums,used,path,result);
         return result;
     }
 
-    private void getResult(int cur, int[] nums, boolean[] used, LinkedList<Integer> path, List<List<Integer>> result) {
-        if (cur == nums.length) {
+    private void backtracking(int cur, int len, int[] nums, boolean[] used,
+                              LinkedList<Integer> path, List<List<Integer>> result) {
+        if (cur == len) {
             result.add(new ArrayList<>(path));
             return;
         }
@@ -29,9 +30,9 @@ public class LeeCode47 {
             }
             path.addLast(nums[i]);
             used[i] = true;
-            getResult(cur+1,nums,used,path,result);
-            used[i] = false;
+            backtracking(cur+1,len,nums,used,path,result);
             path.removeLast();
+            used[i] = false;
         }
     }
 }

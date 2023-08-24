@@ -8,16 +8,16 @@ public class LeeCode78 {
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
         LinkedList<Integer> path = new LinkedList<>();
-        getResult(0,nums,path,result);
+        backtracking(0,nums,path,result);
         result.add(new ArrayList<>());
         return result;
     }
 
-    private void getResult(int start, int[] nums, LinkedList<Integer> path, List<List<Integer>> result) {
-        for (int i = start; i < nums.length; i++) {
+    private void backtracking(int index, int[] nums, LinkedList<Integer> path, List<List<Integer>> result) {
+        for (int i = index; i < nums.length; i++) {
             path.addLast(nums[i]);
             result.add(new ArrayList<>(path));
-            getResult(i+1,nums,path,result);
+            backtracking(i+1,nums,path,result);
             path.removeLast();
         }
     }

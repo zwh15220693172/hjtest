@@ -11,20 +11,16 @@ public class LeeCode40 {
         List<List<Integer>> result = new ArrayList<>();
         LinkedList<Integer> path = new LinkedList<>();
         boolean[] used = new boolean[candidates.length];
-        getResult(0,0,target,used,candidates,path,result);
+        backtracking(0,candidates,used,0,target,path,result);
         return result;
     }
 
-    private void getResult(int start, int sum, int target, boolean[] used, int[] candidates,
-                           LinkedList<Integer> path, List<List<Integer>> result) {
+    private void backtracking(int index, int[] candidates, boolean[] used, int sum, int target,
+                              LinkedList<Integer> path, List<List<Integer>> result) {
         if (sum == target) {
             result.add(new ArrayList<>(path));
-            return;
         }
-        for (int i = start; i < candidates.length; i++) {
-            if (used[i]) {
-                continue;
-            }
+        for (int i = index; i < candidates.length; i++) {
             if (i > 0 && candidates[i] == candidates[i-1] && !used[i-1]) {
                 continue;
             }
@@ -33,7 +29,7 @@ public class LeeCode40 {
             }
             path.addLast(candidates[i]);
             used[i] = true;
-            getResult(i+1,sum+candidates[i],target,used,candidates,path,result);
+            backtracking(i+1,candidates,used,sum+candidates[i],target,path,result);
             path.removeLast();
             used[i] = false;
         }
