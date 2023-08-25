@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * 100%
+ */
 public class Main {
     private static final int[][] directors = {
             {1,0},
@@ -14,8 +17,8 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        int m = input.nextInt();
         int n = input.nextInt();
+        int m = input.nextInt();
         int[][] grid = new int[m][n];
         setGrid(m,n,grid,input);
         List<int[]> targetList = search(m,n,grid,3);
@@ -55,14 +58,6 @@ public class Main {
             }
             backtracking(x,y,m,n,grid,used);
         }
-    }
-
-    private static boolean getResult(int x, int y, int[] target, boolean[][] used, int[][] grid) {
-        if (x == target[0] && y == target[1]) {
-            return true;
-        }
-
-        return false;
     }
 
     private static List<int[]> search(int m, int n, int[][] grid, int value) {
