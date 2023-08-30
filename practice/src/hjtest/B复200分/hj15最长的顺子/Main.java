@@ -7,55 +7,36 @@ public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         while (input.hasNextLine()) {
-            String[] chars01 = getChars(input.nextLine());
-            String[] chars02 = getChars(input.nextLine());
-            HashMap<String,Integer> charCount = buildCharCount(chars01,chars02);
-            boolean[] used = buildUsed(charCount);
-            String shunZi = getShunZi(used);
-            System.out.println(shunZi);
-        }
-        input.close();
-    }
-
-    private static String getShunZi(boolean[] used) {
-        List<Integer> path = new ArrayList<>();
-        List<Integer> result = new ArrayList<>();
-        int max = 4;
-        for (int i = 3; i < used.length; i++) {
-            if (used[i]) {
-                path.add(i);
+            String[] source01 = input.nextLine().split("-");
+            String[] source02 = input.nextLine().split("-");
+            boolean[] used = getUsed(source01,source02);
+            List<Integer> result = new ArrayList<>();
+            LinkedList<Integer> path = new LinkedList<>();
+            for (int i = 3; i < used.length; i++) {
+                if (!used[i]) {
+                    path.addLast(i);
+                    if (i == 13 && !used[1]) {
+                        path.addLast(1);
+                    }
+                } else {
+                    path.clear();
+                }
+                if (path.size() >= result.size()) {
+                    result.clear();
+                    result.addAll(path);
+                }
+            }
+            if (result.size() >= 5) {
+                String collect = result.stream().map(Main::mapToCard)
+                        .collect(Collectors.joining("-"));
+                System.out.println(collect);
             } else {
-                if (path.size() >= max) {
-                    result.clear();
-                    result.addAll(path);
-                    max = result.size();
-                }
-                path.clear();
-            }
-            if (i == used.length-1) {
-                if (path.size() >= max) {
-                    result.clear();
-                    result.addAll(path);
-                    max = result.size();
-                }
-                path.clear();
+                System.out.println("NO-CHAIN");
             }
         }
-        if (result.contains(13) && used[1]) {
-            result.add(1);
-        }
-        if (result.size() < 5) {
-            return "NO-CHAIN";
-        }
-        return getResult(result);
     }
 
-    private static String getResult(List<Integer> result) {
-        return result.stream().map((num)->mapResult(num))
-                .collect(Collectors.joining("-"));
-    }
-
-    private static String mapResult(int num) {
+    private static String mapToCard(int num) {
         if (num == 1) {
             return "A";
         } else if (num == 11) {
@@ -69,48 +50,37 @@ public class Main {
         }
     }
 
-    private static boolean[] buildUsed(HashMap<String, Integer> charCount) {
+    private static boolean[] getUsed(String[] source01, String[] source02) {
         boolean[] used = new boolean[14];
-        Arrays.fill(used,true);
-        Set<String> cards = charCount.keySet();
-        for (String card : cards) {
-            int cardNum = charCount.get(card);
-            if (cardNum < 4) {
-                continue;
-            }
-            switch (card) {
-                case "A":
-                    used[1] = false;
-                    break;
-                case "J":
-                    used[11] = false;
-                    break;
-                case "Q":
-                    used[12] = false;
-                    break;
-                case "K":
-                    used[13] = false;
-                    break;
-                default:
-                    used[Integer.parseInt(card)] = false;
-                    break;
+        HashMap<String,Integer> map = new HashMap<>();
+        for (String cur : source01) {
+            map.put(cur,map.getOrDefault(cur,0)+1);
+        }
+        for (String cur : source02) {
+            map.put(cur,map.getOrDefault(cur,0)+1);
+        }
+        Set<String> keys = map.keySet();
+        for (String key : keys) {
+            int count = map.get(key);
+            if (count == 4) {
+                setUsed(key,used);
             }
         }
         return used;
     }
 
-    private static HashMap<String, Integer> buildCharCount(String[] chars01, String[] chars02) {
-        HashMap<String,Integer> charCount = new HashMap<>();
-        for (String char01 : chars01) {
-            charCount.put(char01,charCount.getOrDefault(char01,0)+1);
+    private static void setUsed(String key, boolean[] used) {
+        if ("A".equals(key)) {
+            used[1] = true;
+        } else if ("J".equals(key)) {
+            used[11] = true;
+        } else if ("Q".equals(key)) {
+            used[12] = true;
+        } else if ("K".equals(key)) {
+            used[13] = true;
+        } else {
+            int index = Integer.parseInt(key);
+            used[index] = true;
         }
-        for (String char02 : chars02) {
-            charCount.put(char02,charCount.getOrDefault(char02,0)+1);
-        }
-        return charCount;
-    }
-
-    private static String[] getChars(String nextLine) {
-        return nextLine.split("-");
     }
 }

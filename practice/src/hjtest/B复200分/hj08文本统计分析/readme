@@ -8,3 +8,5 @@ mime_type TEXT,
 notifica-tionid INTEGER,
 url TEXT
 );
+----------------------------------
+COMMAND "TABLE" IF EXISTS "UNITED\"dasddsa\"STATE";
