@@ -1,20 +1,12 @@
 ---------------------位运算---------------------------
 hj112分苹果
-hj23数据分类
-String hexString = Integer.toHexString(num);
-if (hexString.length() % 2 != 0) {
-  hexString = "0" + hexString;
-}
-int sum = 0;
-for (int i = 0; i < hexString().length() - 1, i+=2) {
-   sum += Integer.parseInt(hexString.substring(i,i+2),16);
-}
-}
+
 
 -------------------一定要回头看的题---------------------
 hj08文本统计分析\\\\[\"']
 hj17任务调度(k-1)*(n+1)+p
-hj18报文响应时间
+hj18报文响应时间 tobinaryString
+hj23数据分类toHexString
 hj41最长连续方波信息^(01)+0$
 hj37没有回文串s == s - 1 s == s - 2 continue
 
