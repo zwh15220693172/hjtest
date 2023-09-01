@@ -9,6 +9,7 @@ hj18报文响应时间 tobinaryString
 hj23数据分类toHexString
 hj41最长连续方波信息^(01)+0$
 hj37没有回文串s == s - 1 s == s - 2 continue
+hj53图像的或电路x * a + y * b - x * y
 
 ------hj53出错的或电路-----------
 bin2上0号位bin1
