@@ -11,23 +11,21 @@ public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         while (input.hasNextLine()) {
-            String[] strings = input.nextLine().split(" ");
+            String[] sources = input.nextLine().split(" ");
             String regex = input.nextLine();
             Pattern compile = Pattern.compile(regex);
             List<Integer> result = new ArrayList<>();
-            for (int i = 0; i < strings.length; i++) {
-                String cur = strings[i];
+            for (int i = 0; i < sources.length; i++) {
+                String cur = sources[i];
                 Matcher matcher = compile.matcher(cur);
                 if (matcher.matches()) {
                     result.add(i);
                 }
             }
-            if (result.isEmpty()) {
-                System.out.println(-1);
-            } else {
-                String collect = result.stream().map(String::valueOf).collect(Collectors.joining(","));
-                System.out.println(collect);
-            }
+            String collect = result.stream().map(String::valueOf)
+                    .collect(Collectors.joining(","));
+            System.out.println(collect);
         }
+        input.close();
     }
 }

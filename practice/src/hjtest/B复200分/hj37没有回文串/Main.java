@@ -9,38 +9,36 @@ public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         while (input.hasNextLine()) {
-            int n = Integer.parseInt(input.nextLine());
+            int len = Integer.parseInt(input.nextLine());
             char[] chars = input.nextLine().toCharArray();
-            String result = getResult(chars,n);
+            String result = getResult(len, chars);
             System.out.println(result);
         }
         input.close();
     }
 
-    private static String getResult(char[] chars, int n) {
+    private static String getResult(int len, char[] chars) {
         int index = chars.length - 1;
-        char max = (char)('a' + n -1);
+        char max = (char)('a' + len - 1);
         boolean back = false;
         while (index >= 0) {
             if (chars[index] < max) {
                 if (!back) {
                     chars[index]++;
-                } else {
-                    back = false;
                 }
                 if (index - 1 >= 0 && chars[index] == chars[index-1]) {
+                    back = false;
                     continue;
                 }
                 if (index - 2 >= 0 && chars[index] == chars[index-2]) {
+                    back = false;
                     continue;
                 }
                 if (index == chars.length - 1) {
                     return new String(chars);
-                } else {
-                    back = true;
                 }
+                back = true;
                 index++;
-
             } else {
                 chars[index] = 'a';
                 index--;
