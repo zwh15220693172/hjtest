@@ -5,50 +5,44 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        int[] ints = getInts(input.nextLine());
-        int min = 1;
-        int max = ints.length;
-        int result = 0;
-        while (min <= max) {
-            int mid = (min + max) / 2;
-            if (canPut(mid,ints)) {
-                result = mid;
-                max = mid - 1;
+        while (input.hasNextLine()) {
+            int count = Integer.parseInt(input.nextLine());
+            HashMap<String,List<String>> parentChildList = listParentChild(count, input);
+            String start = input.nextLine();
+            List<String> path = new ArrayList<>();
+            backtracking(start,parentChildList,path);
+            path.stream().sorted().forEach(System.out::println);
+        }
+        input.close();
+    }
+
+    private static void backtracking(String cur, HashMap<String, List<String>> parentChildList, List<String> path) {
+        if (!parentChildList.containsKey(cur)) {
+            return;
+        }
+        List<String> strings = parentChildList.get(cur);
+        path.addAll(strings);
+        for (String string : strings) {
+            backtracking(string,parentChildList,path);
+        }
+    }
+
+    private static HashMap<String, List<String>> listParentChild(int count, Scanner input) {
+        HashMap<String,List<String>> map = new HashMap<>();
+        while (count > 0) {
+            String[] strings = input.nextLine().split(" ");
+            String parent = strings[1];
+            String child = strings[0];
+            List<String> list;
+            if (map.containsKey(parent)) {
+                list = map.get(parent);
             } else {
-                min = mid + 1;
+                list = new ArrayList<>();
+                map.put(parent,list);
             }
+            list.add(child);
+            count--;
         }
-        System.out.println(result);
-    }
-
-    private static boolean canPut(int mid, int[] ints) {
-        int[] bucket = new int[mid];
-        return backtracking(ints.length-1,ints,bucket);
-    }
-
-    private static boolean backtracking(int index, int[] ints, int[] bucket) {
-        if (index < 0) {
-            return true;
-        }
-        for (int i = 0; i < bucket.length; i++) {
-            if (i > 0 && bucket[i] == bucket[i-1]) {
-                continue;
-            }
-            if (bucket[i] + ints[index] <= 500) {
-                bucket[i] += ints[index];
-                if (backtracking(index-1,ints,bucket)) {
-                    return true;
-                }
-                bucket[i] -= ints[index];
-            }
-        }
-        return false;
-    }
-
-    private static int[] getInts(String nextLine) {
-        int[] array = Arrays.stream(nextLine.split(","))
-                .mapToInt(Integer::parseInt).toArray();
-        Arrays.sort(array);
-        return array;
+        return map;
     }
 }
