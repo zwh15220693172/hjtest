@@ -1,6 +1,6 @@
-package hjtest;
+package hjtest.leecode.动态规划;
 
-public class Main {
+public class LeeCode509 {
     public int fib(int n) {
         if (n <= 1) {
             return n;
