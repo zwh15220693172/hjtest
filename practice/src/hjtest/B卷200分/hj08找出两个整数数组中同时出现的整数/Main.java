@@ -3,63 +3,44 @@ package hjtest.B卷200分.hj08找出两个整数数组中同时出现的整数;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/**
- *
- */
 public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        while (input.hasNextLine()) {
-            int[] ints01 = getInts(input.nextLine());
-            HashMap<Integer, Integer> numCount01 = buildNumCountMap(ints01);
-            int[] ints02 = getInts(input.nextLine());
-            HashMap<Integer, Integer> numCount02 = buildNumCountMap(ints02);
-            List<NumberCount> resultList = new ArrayList<>();
-            for (int key : numCount01.keySet()) {
-                if (numCount02.containsKey(key)) {
-                    int count01 = numCount01.get(key);
-                    int count02 = numCount02.get(key);
-                    int count = Math.min(count01,count02);
-                    NumberCount numberCount = new NumberCount(key,count);
-                    resultList.add(numberCount);
-                }
+        int[] ints01 = getInts(input.nextLine());
+        int[] ints02 = getInts(input.nextLine());
+        Map<Integer,Integer> numCount01 = buildNumCount(ints01);
+        Map<Integer,Integer> numCount02 = buildNumCount(ints02);
+        List<NumCount> result = new ArrayList<>();
+        Set<Integer> keys = numCount01.keySet();
+        for (Integer key : keys) {
+            if (!numCount02.containsKey(key)) {
+                continue;
             }
-            if (resultList.isEmpty()) {
-                System.out.println("NULL");
-            } else {
-                getResult(resultList);
-            }
+            int val01 = numCount01.get(key);
+            int val02 = numCount02.get(key);
+            int val = Math.min(val01,val02);
+            NumCount numCount = new NumCount(key,val);
+            result.add(numCount);
         }
-        input.close();
+        if (result.isEmpty()) {
+            System.out.println("NULL");
+        } else {
+            Map<Integer, List<NumCount>> collect = result.stream().collect(Collectors.groupingBy(NumCount::getCount));
+            collect.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach((entry)->{
+                int key = entry.getKey();
+                String values = entry.getValue().stream().map(NumCount::getNum).sorted()
+                        .map(String::valueOf).collect(Collectors.joining(","));
+                System.out.println(key+":"+values);
+            });
+        }
     }
 
-    private static void getResult(List<NumberCount> resultList) {
-        Map<Integer, List<NumberCount>> collect = resultList.stream().collect(Collectors.groupingBy(NumberCount::getCount));
-        collect.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach((entry)->{
-            int count = entry.getKey();
-            String values = entry.getValue().stream().map(NumberCount::getNumber).sorted()
-                    .map(String::valueOf).collect(Collectors.joining(","));
-            System.out.println(count + ":" + values);
-        });
-    }
-
-    private static HashMap<Integer,Integer> buildNumCountMap(int[] ints01) {
-        HashMap<Integer,Integer> numCount = new HashMap<>();
-        int[] target = new int[ints01.length+1];
-        target[target.length-1] = Integer.MAX_VALUE;
-        System.arraycopy(ints01,0,target,0,ints01.length);
-        int pre = target[0];
-        int count = 1;
-        for (int i = 1; i < target.length; i++) {
-            if (target[i] == pre) {
-                count++;
-            } else {
-                numCount.put(pre,count);
-                pre = target[i];
-                count = 1;
-            }
+    private static Map<Integer, Integer> buildNumCount(int[] ints) {
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for (int cur : ints) {
+            map.put(cur,map.getOrDefault(cur,0)+1);
         }
-        return numCount;
+        return map;
     }
 
     private static int[] getInts(String nextLine) {
@@ -69,17 +50,17 @@ public class Main {
                 .toArray();
     }
 
-    private static class NumberCount {
-        private final int number;
+    private static class NumCount {
+        private final int num;
         private final int count;
 
-        public NumberCount(int number, int count) {
-            this.number = number;
+        public NumCount(int num, int count) {
+            this.num = num;
             this.count = count;
         }
 
-        public int getNumber() {
-            return number;
+        public int getNum() {
+            return num;
         }
 
         public int getCount() {

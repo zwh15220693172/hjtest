@@ -9,108 +9,68 @@ import java.util.*;
  * 如果没有符合要求的结果，要输出-1
  */
 public class Main {
-    private static final LinkedList<Machine> machines = new LinkedList<>();
 
     private static int result;
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        while (input.hasNextLine()) {
-            machines.clear();
-            result = -1;
-            int[] totalLen = totalLen(input.nextLine());
-            int total = totalLen[0];
-            int len = totalLen[1];
-            int count = Integer.parseInt(input.nextLine());
-            HashMap<Integer,List<Machine>> typeMachine = buildTypeMachine(count,input);
-            initMachineComposite(0,len,total,typeMachine);
-            System.out.println(result);
-        }
-        input.close();
+        result = -1;
+        int total = input.nextInt();
+        int len = input.nextInt();
+        HashMap<Integer, List<Machine>> map = buildMap(input);
+        backtracking(0,len,0,total,Integer.MAX_VALUE,map);
+        System.out.println(result);
     }
 
-    private static void initMachineComposite(int cur, int len, int total,
-                                             HashMap<Integer, List<Machine>> typeMachine) {
+    private static void backtracking(int cur, int len, int sum, int total, int reliability,
+                                     HashMap<Integer, List<Machine>> map) {
         if (cur == len) {
-            if (!machines.isEmpty()) {
-                int curTotal = machines.stream().mapToInt(Machine::getPrice).sum();
-                int reliability = machines.stream().mapToInt(Machine::getReliability).min().getAsInt();
-                if (curTotal <= total && reliability > result) {
-                    result = reliability;
-                }
+            if (sum <= total && reliability != Integer.MAX_VALUE) {
+                result = Math.max(reliability,result);
             }
             return;
         }
-        if (!typeMachine.containsKey(cur)) {
+        if (!map.containsKey(cur)) {
             return;
         }
-        List<Machine> curMachineList = typeMachine.get(cur);
-        for (Machine machine : curMachineList) {
-            machines.addLast(machine);
-            initMachineComposite(cur+1,len,total,typeMachine);
-            machines.removeLast();
+        List<Machine> machines = map.get(cur);
+        for (Machine machine : machines) {
+            if (machine.price > total || machine.price + sum > total) {
+                continue;
+            }
+            backtracking(cur+1,len,sum+machine.price,total,Math.min(reliability,machine.reliability),map);
         }
     }
 
-    private static HashMap<Integer, List<Machine>> buildTypeMachine(int count, Scanner input) {
-        HashMap<Integer,List<Machine>> typeMachine = new HashMap<>();
+    private static HashMap<Integer, List<Machine>> buildMap(Scanner input) {
+        int count = input.nextInt();
+        HashMap<Integer, List<Machine>> map = new HashMap<>();
         while (count > 0) {
-            String[] splits = input.nextLine().split(" ");
-            int type = Integer.parseInt(splits[0]);
-            int reliability = Integer.parseInt(splits[1]);
-            int price = Integer.parseInt(splits[2]);
+            int id = input.nextInt();
+            int reliability = input.nextInt();
+            int price = input.nextInt();
             List<Machine> list;
-            if (typeMachine.containsKey(type)) {
-                list = typeMachine.get(type);
+            if (map.containsKey(id)) {
+                list = map.get(id);
             } else {
                 list = new ArrayList<>();
-                typeMachine.put(type,list);
+                map.put(id,list);
             }
-            Machine machine = new Machine(reliability,price);
-            list.add(machine);
+            list.add(new Machine(id,reliability,price));
             count--;
         }
-        return typeMachine;
-    }
-
-    private static int[] totalLen(String nextLine) {
-        return Arrays.stream(nextLine.split(" "))
-                .mapToInt(Integer::parseInt).toArray();
-    }
-
-    private static class MachineComposite {
-        private final int total;
-        private final int reliability;
-
-        public MachineComposite(int total, int reliability) {
-            this.total = total;
-            this.reliability = reliability;
-        }
-
-        public int getTotal() {
-            return total;
-        }
-
-        public int getReliability() {
-            return reliability;
-        }
+        return map;
     }
 
     private static class Machine {
-        private final int reliability;
-        private final int price;
+        private int id;
+        private int reliability;
+        private int price;
 
-        public Machine(int reliability, int price) {
+        public Machine(int id, int reliability, int price) {
+            this.id = id;
             this.reliability = reliability;
             this.price = price;
-        }
-
-        public int getReliability() {
-            return reliability;
-        }
-
-        public int getPrice() {
-            return price;
         }
     }
 }

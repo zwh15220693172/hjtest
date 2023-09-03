@@ -2,52 +2,45 @@ package hjtest.B卷200分.hj10通过软盘拷贝文件;
 
 import java.util.Scanner;
 
-/**
- * 这道题就是01背包问题，不过要搞清楚
- * 1.背包的总容量为1474560 / 512
- * 2.每一个文件的价值为N,
- * 但是容量并不是为N，如果N / 512 == 0，那么容量为N / 512 否则为 N / 512 + 1
- * 100%通过有超时的
- */
 public class Main {
-    private static final int TOTAL_SIZE = 1474560;
-    private static final int PART_SIZE = 512;
+
+    private static final int PART = 512;
+
+    private static final int TOTAL = 1474560;
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        while (input.hasNextLine()) {
-            int len = Integer.parseInt(input.nextLine());
-            int[] values = getValues(len,input);
-            int[] weights = getWeights(values);
-            int total = TOTAL_SIZE / PART_SIZE;
-            int[] dp = new int[total+1];
-            for (int i = 0; i < len; i++) {
-                for (int j = total; j >= weights[i]; j--) {
-                    dp[j] = Math.max(dp[j],dp[j-weights[i]]+values[i]);
-                }
+        int[] values = values(input);
+        int[] sizes = sizes(values);
+        int total = TOTAL / PART;
+        int[] dp = new int[total+1];
+        for (int i = 0; i < sizes.length; i++) {
+            for (int j = total; j >= sizes[i]; j--) {
+                dp[j] = Math.max(dp[j],dp[j-sizes[i]]+values[i]);
             }
-            System.out.println(dp[total]);
         }
-        input.close();
+        System.out.println(dp[total]);
     }
 
-    private static int[] getWeights(int[] values) {
-        int[] weights = new int[values.length];
+    private static int[] sizes(int[] values) {
+        int[] sizes = new int[values.length];
         for (int i = 0; i < values.length; i++) {
-            if (values[i] % PART_SIZE == 0) {
-                weights[i] = values[i] / PART_SIZE;
+            int cur;
+            if (values[i] % PART != 0) {
+                cur = values[i] / PART + 1;
             } else {
-                weights[i] = values[i] / PART_SIZE + 1;
+                cur = values[i] / PART;
             }
+            sizes[i] = cur;
         }
-        return weights;
+        return sizes;
     }
 
-    private static int[] getValues(int len, Scanner input) {
+    private static int[] values(Scanner input) {
+        int len = input.nextInt();
         int[] values = new int[len];
-        int index = 0;
-        while (index < len) {
-            values[index++] = Integer.parseInt(input.nextLine());
+        for (int i = 0; i < len; i++) {
+            values[i] = input.nextInt();
         }
         return values;
     }
