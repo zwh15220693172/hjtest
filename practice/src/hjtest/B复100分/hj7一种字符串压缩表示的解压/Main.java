@@ -7,61 +7,66 @@ public class Main {
         Scanner input = new Scanner(System.in);
         while (input.hasNextLine()) {
             char[] chars = input.nextLine().toCharArray();
-            if (errorChars(chars)) {
+            if (error(chars)) {
                 System.out.println("!error");
             } else {
-                boolean error = false;
-                int index = 0;
-                StringBuilder result = new StringBuilder();
-                while (index < chars.length) {
-                    char cur = chars[index];
-                    if (Character.isLetter(cur)) {
-                        result.append(cur);
-
-                    } else {
-                        StringBuilder digitBuilder = new StringBuilder();
-                        while (index < chars.length && Character.isDigit(chars[index])) {
-                            digitBuilder.append(chars[index]);
-                            index++;
-                        }
-                        String digitStr = digitBuilder.toString();
-                        if (digitStr.startsWith("0")) {
-                            error = true;
-                            break;
-                        }
-                        int digit = Integer.parseInt(digitStr);
-                        if (digit <= 2) {
-                            error = true;
-                            break;
-                        }
-                        if (index >= chars.length) {
-                            error = true;
-                            break;
-                        }
-                        char curChar = chars[index];
-                        char nextChar = findNextChar(index,chars);
-                        if (curChar == nextChar) {
-                            error = true;
-                            break;
-                        }
-                        for (int i = 0; i < digit; i++) {
-                            result.append(curChar);
-                        }
-                    }
-                    index++;
-                }
-                if (error) {
-                    System.out.println("!error");
-                } else {
-                    System.out.println(result);
-                }
+                getResult(chars);
             }
         }
         input.close();
     }
 
-    private static char findNextChar(int index, char[] chars) {
-        for (int i = index + 1; i < chars.length; i++) {
+    private static void getResult(char[] chars) {
+        boolean error = false;
+        int index = 0;
+        int len = chars.length;
+        StringBuilder res = new StringBuilder();
+        while (index < len) {
+            char cur = chars[index];
+            if (Character.isLetter(cur)) {
+                res.append(cur);
+                index++;
+                continue;
+            }
+            StringBuilder digitBuilder = new StringBuilder();
+            while (index < len && Character.isDigit(chars[index])) {
+                digitBuilder.append(chars[index]);
+                index++;
+            }
+            String digitStr = digitBuilder.toString();
+            if (digitStr.startsWith("0")) {
+                error = true;
+                break;
+            }
+            int digit = Integer.parseInt(digitStr);
+            if (digit <= 2) {
+                error = true;
+                break;
+            }
+            if (index >= len) {
+                error = true;
+                break;
+            }
+            char letter = chars[index];
+            for (int i = 0; i < digit; i++) {
+                res.append(letter);
+            }
+            index++;
+            char nextLetter = findNextLetter(index,chars);
+            if (letter == nextLetter) {
+                error = true;
+                break;
+            }
+        }
+        if (error) {
+            System.out.println("!error");
+        } else {
+            System.out.println(res);
+        }
+    }
+
+    private static char findNextLetter(int index, char[] chars) {
+        for (int i = index; i < chars.length; i++) {
             if (Character.isLetter(chars[i])) {
                 return chars[i];
             }
@@ -69,12 +74,11 @@ public class Main {
         return ' ';
     }
 
-    private static boolean errorChars(char[] chars) {
+    private static boolean error(char[] chars) {
         char pre = ' ';
         int count = 1;
-        for (int i = 0; i < chars.length; i++) {
-            char cur = chars[i];
-            if (!Character.isLetterOrDigit(cur)) {
+        for (char cur : chars) {
+            if (!(Character.isLetterOrDigit(cur))) {
                 return true;
             }
             if (Character.isLetter(cur)) {
@@ -82,14 +86,16 @@ public class Main {
                     return true;
                 }
             }
-            if (cur == pre) {
-                count++;
-                if (count > 2) {
-                    return true;
+            if (Character.isLetter(cur)) {
+                if (cur == pre) {
+                    count++;
+                    if (count > 2) {
+                        return true;
+                    }
+                } else {
+                    pre = cur;
+                    count = 1;
                 }
-            } else {
-                pre = cur;
-                count = 1;
             }
         }
         return false;

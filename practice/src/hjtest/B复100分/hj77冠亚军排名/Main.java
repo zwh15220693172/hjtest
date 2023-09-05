@@ -8,42 +8,42 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        while (input.hasNextLine()) {
-            int count = Integer.parseInt(input.nextLine());
-            List<Country> listCountry = listCountry(count,input);
-            listCountry.stream().sorted(new Comparator<Country>() {
-                @Override
-                public int compare(Country a, Country b) {
-                    if (a.goldMedal == b.goldMedal) {
-                        if (a.silverMedal == b.silverMedal) {
-                            if (b.bronzeMedal == a.bronzeMedal) {
-                                return a.name.compareTo(b.name);
-                            }
-                            return b.bronzeMedal - a.bronzeMedal;
+        int len = Integer.parseInt(input.nextLine());
+        List<Country> listCountry = listCountry(len,input);
+        listCountry.stream().sorted(new Comparator<Country>() {
+            @Override
+            public int compare(Country a, Country b) {
+                if (a.goldMedal == b.goldMedal) {
+                    if (b.silverMedal == a.silverMedal) {
+                        if (b.bronzeMedal == a.bronzeMedal) {
+                            return a.name.compareTo(b.name);
                         }
-                        return b.silverMedal - a.silverMedal;
+                        return b.bronzeMedal - a.bronzeMedal;
                     }
-                    return b.goldMedal - a.goldMedal;
+                    return b.silverMedal - a.silverMedal;
                 }
-            }).forEach(System.out::println);
-        }
-        input.close();
+                return b.goldMedal - a.goldMedal;
+            }
+        }).map(Country::getName).forEach(System.out::println);
     }
 
-    private static List<Country> listCountry(int count, Scanner input) {
+    private static List<Country> listCountry(int len, Scanner input) {
         List<Country> listCountry = new ArrayList<>();
-        while (count > 0) {
-            String nextLine = input.nextLine();
-            String[] splits = nextLine.split(" ");
-            String name = splits[0];
-            int goldMedal = Integer.parseInt(splits[1]);
-            int silverMedal = Integer.parseInt(splits[2]);
-            int bronzeMedal = Integer.parseInt(splits[3]);
-            Country country = new Country(name, goldMedal, silverMedal, bronzeMedal);
+        while (len > 0) {
+            Country country = getCountry(input.nextLine());
             listCountry.add(country);
-            count--;
+            len--;
         }
         return listCountry;
+    }
+
+    private static Country getCountry(String nextLine) {
+        String[] splits = nextLine.split(" ");
+        String name = splits[0];
+        int goldMedal = Integer.parseInt(splits[1]);
+        int silverMedal = Integer.parseInt(splits[2]);
+        int bronzeMedal = Integer.parseInt(splits[3]);
+        return new Country(name, goldMedal, silverMedal, bronzeMedal);
     }
 
     private static class Country {
@@ -60,23 +60,6 @@ public class Main {
         }
 
         public String getName() {
-            return name;
-        }
-
-        public int getGoldMedal() {
-            return goldMedal;
-        }
-
-        public int getSilverMedal() {
-            return silverMedal;
-        }
-
-        public int getBronzeMedal() {
-            return bronzeMedal;
-        }
-
-        @Override
-        public String toString() {
             return name;
         }
     }
