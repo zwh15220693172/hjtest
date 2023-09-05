@@ -8,58 +8,51 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        while (input.hasNextLine()) {
-            char[] source = input.nextLine().toCharArray();
-            int[] charCount = new int[5];
-            LinkedList<Integer> qIndex = new LinkedList<>();
-            Map<Character, Integer> charIndex = getCharIndex();
-            List<int[]> ints = new ArrayList<>();
-            for (int i = 0; i < source.length; i++) {
-                char cur = source[i];
-                int index = charIndex.get(cur);
-                if (cur == 'q') {
-                    qIndex.add(i);
-                    charCount[0]++;
-                } else if (cur == 'k') {
-                    if (charCount[index] < charCount[index-1]) {
-                        charCount[index]++;
-                        ints.add(new int[]{qIndex.pop(),i});
-                    }
-                } else {
-                    if (charCount[index] < charCount[index-1]) {
-                        charCount[index]++;
-                    }
+        LinkedList<Integer> qIndexList = new LinkedList<>();
+        List<int[]> quackInts = new ArrayList<>();
+        int[] quackCount = new int[5];
+        char[] chars = input.nextLine().toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            char cur = chars[i];
+            if (cur == 'q') {
+                qIndexList.addLast(i);
+                quackCount[0]++;
+            } else if (cur =='u') {
+                if (quackCount[0] > quackCount[1]) {
+                    quackCount[1]++;
                 }
-            }
-            if (ints.isEmpty()) {
-                System.out.println(-1);
+            } else if (cur == 'a') {
+                if (quackCount[1] > quackCount[2]) {
+                    quackCount[2]++;
+                }
+            } else if (cur == 'c') {
+                if (quackCount[2] > quackCount[3]) {
+                    quackCount[3]++;
+                }
             } else {
-                int max = 1;
-                int count = 1;
-                int[] pre = ints.get(0);
-                for (int i = 1; i < ints.size(); i++) {
-                    int[] cur = ints.get(i);
-                    if (cur[0] < pre[1]) {
-                        count++;
-                        max = Math.max(count,max);
-                    } else {
-                        pre = cur;
-                        count = 1;
-                    }
+                if (quackCount[3] > quackCount[4]) {
+                    quackCount[4]++;
+                    int qIndex = qIndexList.pop();
+                    quackInts.add(new int[]{qIndex, i});
                 }
-                System.out.println(max);
             }
         }
-        input.close();
-    }
-
-    private static Map<Character,Integer> getCharIndex() {
-        Map<Character,Integer> charIndex = new HashMap<>();
-        charIndex.put('q',0);
-        charIndex.put('u',1);
-        charIndex.put('a',2);
-        charIndex.put('c',3);
-        charIndex.put('k',4);
-        return charIndex;
+        if (quackInts.isEmpty()) {
+            System.out.println(-1);
+        } else {
+            int max = 1;
+            for (int i = 0; i < quackInts.size(); i++) {
+                int count = 1;
+                int right = quackInts.get(i)[1];
+                for (int j = i + 1; j < quackInts.size(); j++) {
+                    int left = quackInts.get(j)[0];
+                    if (left < right) {
+                        count++;
+                    }
+                }
+                max = Math.max(count,max);
+            }
+            System.out.println(max);
+        }
     }
 }
