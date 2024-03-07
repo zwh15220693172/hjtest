@@ -1,6 +1,6 @@
 package hjtest.排序算法.归并;
 
-import 排序算法.SortDemo;
+import hjtest.排序算法.SortDemo;
 
 public class MergeSortDemo implements SortDemo {
     @Override

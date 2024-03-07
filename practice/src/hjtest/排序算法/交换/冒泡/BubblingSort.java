@@ -1,6 +1,6 @@
 package hjtest.排序算法.交换.冒泡;
 
-import 排序算法.SortDemo;
+import hjtest.排序算法.SortDemo;
 
 public class BubblingSort implements SortDemo {
     @Override

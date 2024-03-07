@@ -1,6 +1,6 @@
 package hjtest.排序算法.插入.简单插入;
 
-import 排序算法.SortDemo;
+import hjtest.排序算法.SortDemo;
 
 public class InsertDemo implements SortDemo {
     @Override
